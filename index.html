@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>烟花动画特效</title>
+<title>我的高抛生日快乐🎂</title>
  
 <style>
 html,body{
@@ -15,14 +15,16 @@ html,body{
  
 #canvas{
 	width:100%;
-	height:100%;
+	height:90%;
 }
 </style>
  
 </head>
 <body>
- 
-<canvas id="canvas"></canvas><script>
+  <video src='http://eu.sycdn.kuwo.cn/0084c4d515a6897fc2de5e1a1b5df281/6176a75e/resource/n2/34/34/3219045423.mp3' controls preload="auto"></video>>
+<canvas id="canvas"></canvas>
+
+<script>
 function initVars(){
  
 	pi=Math.PI;
@@ -40,7 +42,14 @@ function initVars(){
 	s="https://cantelope.org/NYE/";
 	for(i=1;i<=10;++i){
 		sparkPic=new Image();
-		sparkPic.src=s+"spark"+i+".png";
+		if(i===5){
+	  	sparkPic.src= './img/gao.jpeg'; 
+		}else if(i===7){
+	  	sparkPic.src= './img/gao1.jpeg'; 
+    }else{
+      sparkPic.src= s+"spark"+i+".png"; 
+    }
+		console.log('sparkPic--',sparkPic)
 		sparkPics.push(sparkPic);
 	}
 	sparks=new Array();
@@ -247,6 +256,7 @@ function draw(){
 			ctx.fillRect(point.x-size/2,point.y-size/2,size,size);
 		}
 	}
+
 	point1=new Object();
 	for(i=0;i<sparks.length;++i){
 		point=rasterizePoint(sparks[i].x,sparks[i].y,sparks[i].z);
@@ -254,6 +264,7 @@ function draw(){
 			size=sparks[i].radius*200/(1+point.d);
 			if(sparks[i].alpha<0)sparks[i].alpha=0;
 			if(sparks[i].trail.length){
+			
 				point1.x=point.x;
 				point1.y=point.y;
 				switch(sparks[i].img){
@@ -267,6 +278,16 @@ function draw(){
 					case sparkPics[7]:ctx.strokeStyle="#84f";break;
 					case sparkPics[8]:ctx.strokeStyle="#fff";break;
 					case sparkPics[9]:ctx.strokeStyle="#44f";break;
+					// case sparkPics[0]:ctx.strokeStyle="#f84";ctx.font = 'bold 35px Arial'; ctx.strokeText("亲",(Math.random()*200)+200,(Math.random()*200)+200);break;
+					// case sparkPics[1]:ctx.strokeStyle="#84f";ctx.font = 'bold 35px Arial';ctx.strokeText("爱",(Math.random()*400)+400,(Math.random()*400)+400);;break;
+					// case sparkPics[2]:ctx.strokeStyle="#8ff";ctx.font = 'bold 35px Arial'; ctx.strokeText("的",(Math.random()*600)+600,(Math.random()*600)+600);;break;
+					// case sparkPics[3]:ctx.strokeStyle="#fff";ctx.font = 'bold 35px Arial'; ctx.strokeText("高",(Math.random()*700)+700,(Math.random()*700)+700);;break;
+					// case sparkPics[4]:ctx.strokeStyle="#4f8";ctx.font = 'bold 35px Arial'; ctx.strokeText("抛",(Math.random()*800)+800,(Math.random()*800)+800);;break;
+					// case sparkPics[5]:ctx.strokeStyle="#f44";ctx.font = 'bold 35px Arial'; ctx.strokeText("生",(Math.random()*300)+300,(Math.random()*300)+300);;break;
+					// case sparkPics[6]:ctx.strokeStyle="#f84";ctx.font = 'bold 35px Arial'; ctx.strokeText("日",(Math.random()*500)+500,(Math.random()*500)+500);;break;
+					// case sparkPics[7]:ctx.strokeStyle="#84f";ctx.font = 'bold 35px Arial'; ctx.strokeText("快",(Math.random()*100)+100,(Math.random()*100)+100);;break;
+					// case sparkPics[8]:ctx.strokeStyle="#fff";ctx.font = 'bold 35px Arial';ctx.strokeText("乐",(Math.random()*700)+700,(Math.random()*700)+700);;break;
+					// case sparkPics[9]:ctx.strokeStyle="#44f";ctx.font = 'bold 35px Arial';ctx.strokeText("哟",(Math.random()*450)+100,(Math.random()*450)+100);;break;
 				}
 				for(j=sparks[i].trail.length-1;j>=0;--j){
 					point2=rasterizePoint(sparks[i].trail[j].x,sparks[i].trail[j].y,sparks[i].trail[j].z);
@@ -281,6 +302,7 @@ function draw(){
 						point1.y=point2.y;
 					}
 				}
+
 			}
 			ctx.globalAlpha=sparks[i].alpha;
 			ctx.drawImage(sparks[i].img,point.x-size/2,point.y-size/2,size,size);
